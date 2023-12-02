@@ -36,7 +36,6 @@ class Challenge(BaseChallenge):
         }
 
         for line in self.input_lines():
-
             first_pos = None
             last_pos = None
             first_num = None
@@ -65,7 +64,7 @@ class Challenge(BaseChallenge):
                     first_pos = found
                     first_num = value
 
-            start = last_pos -1 if last_pos else 0
+            start = last_pos - 1 if last_pos else 0
             restart = True
             while restart:
                 for key, value in replacements.items():

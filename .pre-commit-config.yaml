@@ -13,16 +13,6 @@ repos:
       - id: mixed-line-ending
 -   repo: local
     hooks:
-      - id: ruff-format
-        name: ruff-format
-        entry: poetry run ruff format
-        language: system
-        types: [python]
-      - id: ruff
-        name: ruff
-        entry: poetry run ruff --fix
-        language: system
-        types: [ python ]
       - id: mypy
         name: mypy
         entry: poetry run mypy .
@@ -30,3 +20,12 @@ repos:
         language: system
         types: [python]
         pass_filenames: false
+-   repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 23.11.0
+    hooks:
+      - id: black
+        # It is recommended to specify the latest version of Python
+        # supported by your project here, or alternatively use
+        # pre-commit's default_language_version, see
+        # https://pre-commit.com/#top_level-default_language_version
+        language_version: python3.12
