@@ -3,10 +3,10 @@ from aoc.base import BaseChallenge
 
 class Challenge(BaseChallenge):
     def part_1(self):
-        return 0
+        return
 
     def part_2(self):
-        return 0
+        return
 
 
 if __name__ == "__main__":
