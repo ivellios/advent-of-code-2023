@@ -41,6 +41,7 @@ pytest-watcher = "*"
 ipython = "*"
 ipdb = "*"
 black = "*"
+icecream = "*"
 
 
 [build-system]
