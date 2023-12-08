@@ -61,8 +61,7 @@ class RangesMapper(Mapper):
             # ic("New range...")
             range_start = the_range[0]
             range_end = the_range[-1]
-            range_length = range_end - range_start
-            # ic(range_start, range_end, range_length)
+            # ic(range_start, range_end, range_end - range_start)
 
             for vidx, vector in enumerate(self.vectors):
                 # ic("Processing vector...")
