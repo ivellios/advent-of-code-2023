@@ -1,8 +1,9 @@
 from collections import defaultdict
 from functools import reduce
 from operator import mul
+from typing import List
 
-from icecream import ic
+from icecream import ic  # type: ignore
 
 from aoc.base import BaseChallenge
 
@@ -26,12 +27,10 @@ def find_all_numbers_in_string(value) -> dict[int, str]:
 
 
 class Challenge(BaseChallenge):
-
     special_chars = "!@#$%^&*()-+=_~`/\\"
     excluded_chars = ".0123456789"
 
     def extract_data(self, index, number, line_idx, line):
-
         start = index - 1
         end = index + len(number)  # + 1
 
@@ -156,7 +155,7 @@ class Challenge(BaseChallenge):
         return aggregator_function(counted_numbers)
 
     def part_1(self):
-        counted_numbers = []
+        counted_numbers: List[int] = []
         return self.process_part(
             counted_numbers, self.part_1_count, self.part_1_aggregator
         )

@@ -1,23 +1,21 @@
 from collections import defaultdict
 
-from icecream import ic
+from icecream import ic  # type: ignore
 
 from aoc.base import BaseChallenge
 
 
 class Challenge(BaseChallenge):
-
-
     @staticmethod
     def get_common_numbers_count(line):
         _, cards = line.split(":")
         winning_numbers_card, card = cards.split("|")
         winning_numbers = set(
-            [no.strip() for no in winning_numbers_card.split(" ") if no.strip() != ""])
+            [no.strip() for no in winning_numbers_card.split(" ") if no.strip() != ""]
+        )
         card_numbers = set([no.strip() for no in card.split(" ") if no.strip() != ""])
         common_numbers = winning_numbers.intersection(card_numbers)
         return len(common_numbers)
-
 
     def part_1(self):
         total = 0
@@ -37,7 +35,7 @@ class Challenge(BaseChallenge):
 
             copies[idx] += 1
             for x in range(common_numbers_count):
-                copies[idx+x+1] += copies[idx]
+                copies[idx + x + 1] += copies[idx]
             lines_count += 1
 
         return sum(list(copies.values())[:lines_count])

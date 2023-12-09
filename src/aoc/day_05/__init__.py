@@ -1,14 +1,14 @@
 from functools import reduce
 
-from icecream import ic
+from icecream import ic  # type: ignore
 
 from aoc.base import BaseChallenge
 
 
 class MapVector:
-    def __init__(self, source, range_length, destination):
-        self.source = source
-        self.range_length = range_length
+    def __init__(self, source: int, range_length: int, destination: int):
+        self.source: int = source
+        self.range_length: int = range_length
         self.destination = destination
 
     @property
@@ -16,14 +16,16 @@ class MapVector:
         return self.destination - self.source
 
     @property
-    def range_limit(self):
+    def range_limit(self) -> int:
         return self.source + self.range_length
 
     @property
     def start(self):
         return self.source
 
-    end = range_limit
+    @property
+    def end(self):
+        return self.range_limit
 
     def is_in_range(self, value):
         return 0 <= value - self.source < self.range_length
@@ -73,28 +75,28 @@ class RangesMapper(Mapper):
                     ranges_lengths.append(vector.start - range_start)
 
                 # ic("Fetching intersection min...")
-                vector_range_start = max(range_start, vector.start) # min(vector_common_set)
+                vector_range_start = max(
+                    range_start, vector.start
+                )  # min(vector_common_set)
                 # ic("Fetching intersection max...")
                 vector_range_end = min(range_end, vector.end)  # max(vector_common_set)
 
                 if vector_range_end > vector_range_start:
                     # ic("Adding range...")
                     ranges.append(
-                        range(vector_range_start+vector.shift, vector_range_end+vector.shift+1)
+                        range(
+                            vector_range_start + vector.shift,
+                            vector_range_end + vector.shift + 1,
+                        )
                     )
                     ranges_lengths.append(vector_range_end - vector_range_start)
 
             if range_end > vector.end:
-
                 if range_start > vector.end:
-                    ranges.append(
-                        range(range_start, range_end+1)
-                    )
+                    ranges.append(range(range_start, range_end + 1))
                     ranges_lengths.append(range_end - range_start)
                 else:
-                    ranges.append(
-                        range(vector.end+1, range_end+1)
-                    )
+                    ranges.append(range(vector.end + 1, range_end + 1))
                     ranges_lengths.append(range_end - vector.end)
 
             # ic(ranges, ranges_lengths)
@@ -103,30 +105,39 @@ class RangesMapper(Mapper):
 
 
 class Challenge(BaseChallenge):
-
     def get_mappers(self, mapper_klass):
         map_indexes = []
         for idx, line in enumerate(self.input_lines()):
             if line.strip() == "":
                 map_indexes.append(idx)
-        map_indexes.append(idx+1)
+        map_indexes.append(idx + 1)
 
         return [
             mapper_klass(
-                self.input_lines()[map_indexes[mapper_idx]+2:map_indexes[mapper_idx+1]]
+                self.input_lines()[
+                    map_indexes[mapper_idx] + 2 : map_indexes[mapper_idx + 1]
+                ]
             )
             for mapper_idx in range(0, 7)
         ]
 
     def part_1(self):
-        seeds = [int(value.strip()) for value in self.input_lines()[0].split(":")[1].split(" ") if value.strip() != ""]
+        seeds = [
+            int(value.strip())
+            for value in self.input_lines()[0].split(":")[1].split(" ")
+            if value.strip() != ""
+        ]
 
         mappers = self.get_mappers(Mapper)
-        return min(reduce(lambda x, mapper: mapper.map(x), mappers, seed) for seed in seeds)
+        return min(
+            reduce(lambda x, mapper: mapper.map(x), mappers, seed) for seed in seeds
+        )
 
     def part_2(self):
         seeds_line = [
-            int(value.strip()) for value in self.input_lines()[0].split(":")[1].split(" ") if value.strip() != ""
+            int(value.strip())
+            for value in self.input_lines()[0].split(":")[1].split(" ")
+            if value.strip() != ""
         ]
 
         seeds = zip(seeds_line[::2], seeds_line[1::2])
@@ -138,16 +149,13 @@ class Challenge(BaseChallenge):
                 reduce(
                     lambda x, mapper: mapper.map(x),
                     mappers,
-                    [range(seed_range_start, seed_range_start + seed_range)]
+                    [range(seed_range_start, seed_range_start + seed_range)],
                 )
             )
 
         vals = []
         for ranges_list in values:
-            vals += [
-                rng[0]
-                for rng in ranges_list
-            ]
+            vals += [rng[0] for rng in ranges_list]
 
         return min(vals)
 

@@ -1,10 +1,9 @@
-from icecream import ic
+from icecream import ic  # type: ignore
 
 from aoc.base import BaseChallenge
 
 
 class Challenge(BaseChallenge):
-
     @staticmethod
     def calc_race(times, distances):
         races = zip(times, distances)
@@ -14,7 +13,7 @@ class Challenge(BaseChallenge):
             max_hold_time = rt // 2
             options = 0
             for v in range(max_hold_time, 0, -1):
-                distance = v*(rt - v)
+                distance = v * (rt - v)
                 if distance > rd:
                     options += 2
 
@@ -41,7 +40,7 @@ class Challenge(BaseChallenge):
         times = int(time.replace(" ", ""))
         distances = int(distance.replace(" ", ""))
 
-        return self.calc_race((times, ), (distances, ))
+        return self.calc_race((times,), (distances,))
 
 
 if __name__ == "__main__":
