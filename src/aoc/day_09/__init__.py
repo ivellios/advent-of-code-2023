@@ -9,7 +9,6 @@ ic.disable()
 
 
 class HistoryProcessor:
-
     def __init__(self, data, store_num_func: callable, reduce_func: callable):
         self.store_num_func = store_num_func
         self.reduce_function = reduce_func
@@ -18,7 +17,9 @@ class HistoryProcessor:
     def process(self) -> int:
         sums = 0
         for line in self.data:
-            sums += self.process_line([int(val.strip()) for val in line.split(" ") if val.strip() != ""])
+            sums += self.process_line(
+                [int(val.strip()) for val in line.split(" ") if val.strip() != ""]
+            )
         return sums
 
     @staticmethod
@@ -42,20 +43,14 @@ class HistoryProcessor:
 
 
 class Challenge(BaseChallenge):
-
     def part_1(self):
         return HistoryProcessor(
-            self.input_lines(),
-            lambda numbers: numbers.pop(),
-            lambda a,b: a+b
+            self.input_lines(), lambda numbers: numbers.pop(), lambda a, b: a + b
         ).process()
-
 
     def part_2(self):
         return HistoryProcessor(
-            self.input_lines(),
-            lambda numbers: numbers[0],
-            lambda a, b: b - a
+            self.input_lines(), lambda numbers: numbers[0], lambda a, b: b - a
         ).process()
 
 
