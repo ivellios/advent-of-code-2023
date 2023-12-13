@@ -8,7 +8,6 @@ from aoc.base import BaseChallenge
 
 
 class Hand:
-
     FIGURE_MAPPING = {"T": 10, "J": 11, "Q": 12, "K": 13, "A": 14}
 
     def __init__(self, cards: str, bid: int):
@@ -57,7 +56,6 @@ class Hand:
 
 
 class JokerHand(Hand):
-
     FIGURE_MAPPING = {
         "J": 1,
         "2": 2,
