@@ -1,4 +1,5 @@
 from functools import reduce
+from typing import Callable
 
 from icecream import ic  # type: ignore
 
@@ -9,7 +10,7 @@ ic.disable()
 
 
 class HistoryProcessor:
-    def __init__(self, data, store_num_func: callable, reduce_func: callable):
+    def __init__(self, data, store_num_func: Callable, reduce_func: Callable):
         self.store_num_func = store_num_func
         self.reduce_function = reduce_func
         self.data = data
